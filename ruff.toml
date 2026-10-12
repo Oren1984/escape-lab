@@ -1,0 +1,9 @@
+line-length = 130
+target-version = "py312"
+
+[lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["S101", "S311", "E501", "B905"]  # asserts in tests; seeded simulation RNG; long UI strings; zip of equal-length lists
+
+[lint.per-file-ignores]
+"tests/*" = ["S", "B"]

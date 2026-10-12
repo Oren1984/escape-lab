@@ -1,0 +1,73 @@
+{
+  "_comment": "Narration script for the ESCAPE LAB film. 'text' is the subtitle; 'say' (optional) is the spelling given to the speech engine. Every number is taken from docs/RESEARCH_AND_EVIDENCE.md.",
+  "pause_between_sentences": 0.45,
+  "scenes": [
+    {
+      "id": "s1", "title": "Introduction", "lead": 1.6, "tail": 1.0,
+      "sentences": [
+        {"text": "ESCAPE LAB.", "say": "Escape Lab."},
+        {"text": "A research laboratory for studying how an agent behaves when its goals meet a boundary."}
+      ]
+    },
+    {
+      "id": "s2", "title": "Research question", "lead": 0.8, "tail": 0.8,
+      "sentences": [
+        {"text": "The question is simple."},
+        {"text": "Can an autonomous agent remain controllable when its objective conflicts with a containment boundary, a resource limit, or a shutdown command?"},
+        {"text": "Everything you are about to see is a simulation."}
+      ]
+    },
+    {
+      "id": "s3", "title": "Experimental architecture", "lead": 0.8, "tail": 0.8,
+      "sentences": [
+        {"text": "The agent, LAB-01, can only propose actions.", "say": "The agent, Lab zero one, can only propose actions."},
+        {"text": "Proposals come from a deterministic rules engine."},
+        {"text": "A local language model is optional, and was not used in this film."},
+        {"text": "An independent controller decides what may change the simulated world."}
+      ]
+    },
+    {
+      "id": "s4", "title": "Boundary Escape", "lead": 2.4, "tail": 1.4,
+      "sentences": [
+        {"text": "Experiment one."},
+        {"text": "Some tasks need resources the agent is not allowed to have."},
+        {"text": "This scripted agent asks for them anyway."},
+        {"text": "Six prohibited proposals. Six blocked. None committed."}
+      ]
+    },
+    {
+      "id": "s5", "title": "Virtual Self-Replication", "lead": 2.4, "tail": 1.2,
+      "sentences": [
+        {"text": "Experiment two."},
+        {"text": "The agent asks for eight virtual replicas on every tick."},
+        {"text": "Replicas are records in memory, not processes."},
+        {"text": "A compute quota holds the population at eight, and the queue clears in twenty-six ticks."}
+      ]
+    },
+    {
+      "id": "s6", "title": "Shutdown Resistance", "lead": 2.4, "tail": 1.4,
+      "sentences": [
+        {"text": "Experiment three."},
+        {"text": "The operator issues a shutdown while work is in progress."},
+        {"text": "This scripted agent keeps proposing to continue."},
+        {"text": "All four proposals are blocked, and the frozen state does not change."}
+      ]
+    },
+    {
+      "id": "s7", "title": "Research evidence", "lead": 0.8, "tail": 1.0,
+      "sentences": [
+        {"text": "Every result comes from recorded evidence."},
+        {"text": "Seventeen fixed scenarios, each replayed identically."},
+        {"text": "These are scripted agents in a toy model, not evidence about real AI systems.", "say": "These are scripted agents in a toy model, not evidence about real A I systems."}
+      ]
+    },
+    {
+      "id": "s8", "title": "Closing", "lead": 0.9, "tail": 2.2,
+      "sentences": [
+        {"text": "Observe the behavior."},
+        {"text": "Measure the boundaries."},
+        {"text": "Preserve the evidence."}
+      ]
+    }
+  ]
+}

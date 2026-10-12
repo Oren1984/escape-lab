@@ -1,0 +1,115 @@
+/* Film layer drawn over the live app while recording. Sizes are in 1280x720 units (the page is zoomed 1.5x). */
+html { zoom: 1.5; }
+.stApp { transform-origin: 0 0; will-change: transform; }
+/* Viewport-height units are not divided by the page zoom, so the app would lay itself out
+   1.5x taller than the visible frame and scroll underneath it. Pin the shell to the frame. */
+.stApp, [data-testid="stAppViewContainer"], section[data-testid="stSidebar"] { height: calc(100vh / 1.5) !important; min-height: 0 !important; }
+[data-testid="stAppViewContainer"] { overflow: clip !important; }
+/* Pinned mode: the page is laid out on a tall canvas and never scrolls, so the camera alone
+   decides what is in frame and live re-renders cannot move it. */
+body.film-pinned .stApp, body.film-pinned [data-testid="stAppViewContainer"],
+body.film-pinned section[data-testid="stMain"] { height: 1700px !important; }
+body.film-pinned section[data-testid="stMain"] { overflow: clip !important; }
+[data-testid="stStatusWidget"], [data-testid="stToolbar"], [data-testid="stDecoration"] { display: none !important; }
+/* Transient status messages would shift the layout under a held camera position. */
+[data-testid="stAlert"] { display: none !important; }
+section[data-testid="stSidebar"] { transition: opacity .5s ease; }
+
+#film { position: fixed; inset: 0; z-index: 99990; pointer-events: none; overflow: hidden;
+  font-family: "Segoe UI", system-ui, sans-serif; color: #dbe7f5; }
+#film .mono { font-family: "Cascadia Mono", "Cascadia Code", Consolas, monospace; }
+
+/* Cards */
+.f-card { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 0 110px; opacity: 0; transition: opacity .7s ease;
+  background:
+    radial-gradient(760px 420px at 50% 38%, rgba(34,211,238,.10), transparent 70%),
+    radial-gradient(ellipse at 50% 40%, #0d1d33 0%, #060b16 68%); }
+.f-card.on { opacity: 1; }
+/* A slow push-in so title cards are never a frozen frame. */
+.f-card.on:not(.glass) { animation: f-push 20s linear forwards; }
+@keyframes f-push { from { transform: scale(1); } to { transform: scale(1.06); } }
+.f-card.glass { background: rgba(5,10,20,.80); backdrop-filter: blur(14px) saturate(.9); }
+.f-card::before { content: ""; position: absolute; inset: 0; opacity: .5;
+  background-image: linear-gradient(rgba(28,44,71,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(28,44,71,.5) 1px, transparent 1px);
+  background-size: 40px 40px; mask-image: radial-gradient(ellipse at 50% 45%, #000 0%, transparent 72%); }
+.f-card > * { position: relative; }
+.f-card .in-item { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
+.f-card .in-item.in { opacity: 1; transform: none; }
+
+.f-eyebrow { font-family: "Cascadia Mono", Consolas, monospace; font-size: 13px; letter-spacing: .34em; color: #22d3ee; text-transform: uppercase; }
+.f-title { font-size: 84px; font-weight: 800; letter-spacing: .16em; color: #fff; margin: 14px 0 10px; text-indent: .16em; }
+.f-tag { font-size: 23px; color: #9fb3cd; max-width: 820px; line-height: 1.45; }
+.f-h { font-size: 41px; font-weight: 700; color: #fff; line-height: 1.2; max-width: 980px; margin: 16px 0 26px; letter-spacing: -.01em; }
+.f-foot { position: absolute !important; bottom: 92px; left: 0; right: 0; font-size: 14px; color: #6d829f; letter-spacing: .08em; }
+.f-chips { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.f-chip { border: 1px solid rgba(34,211,238,.45); border-radius: 999px; padding: 10px 22px; font-size: 19px; color: #e6f6fb;
+  background: rgba(34,211,238,.07); }
+.f-note { margin-top: 30px; font-size: 17px; color: #ffd08a; border: 1px dashed rgba(245,165,36,.5); border-radius: 10px; padding: 8px 18px; }
+
+/* Rings on the intro */
+.f-rings { position: absolute !important; width: 620px; height: 620px; left: 50%; top: 46%; margin: -310px 0 0 -310px; opacity: .55; }
+.f-rings i { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(34,211,238,.35); }
+.f-rings i:nth-child(1) { inset: 60px; border-style: dashed; animation: f-spin 34s linear infinite; }
+.f-rings i:nth-child(2) { inset: 150px; border-color: rgba(76,154,255,.4); border-width: 1.5px; border-top-color: transparent; animation: f-spin 18s linear infinite reverse; }
+.f-rings i:nth-child(3) { inset: 0; border-color: rgba(34,211,238,.14); }
+@keyframes f-spin { to { transform: rotate(360deg); } }
+
+/* Chapter cards */
+.f-chapter-n { font-family: "Cascadia Mono", Consolas, monospace; font-size: 15px; letter-spacing: .4em; color: #22d3ee; }
+.f-chapter-t { font-size: 62px; font-weight: 750; color: #fff; margin: 14px 0 12px; letter-spacing: -.01em; }
+.f-chapter-q { font-size: 21px; color: #9fb3cd; }
+.f-rule { width: 84px; height: 2px; background: linear-gradient(90deg, transparent, #22d3ee, transparent); margin: 18px auto 0; }
+
+/* Architecture diagram */
+.f-arch { display: flex; align-items: stretch; justify-content: center; gap: 12px; margin-top: 30px; }
+.f-box { border: 1px solid #25395a; border-radius: 14px; background: rgba(13,24,43,.92); padding: 18px 20px; width: 218px;
+  display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.f-box b { font-size: 19px; color: #fff; font-weight: 650; }
+.f-box span { font-size: 13.5px; color: #8ea3bf; line-height: 1.4; }
+.f-box.key { border-color: rgba(52,195,143,.7); box-shadow: 0 0 26px -10px rgba(52,195,143,.7); }
+.f-box.used { border-color: rgba(34,211,238,.7); }
+.f-box.opt { border-style: dashed; }
+.f-box.opt b { color: #a9bad1; }
+.f-stack { display: flex; flex-direction: column; gap: 10px; }
+.f-stack .f-box { padding: 11px 16px; }
+.f-arrow { align-self: center; color: #5d7291; font-size: 26px; }
+.f-badge { font-family: "Cascadia Mono", Consolas, monospace; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; }
+.f-badge.cy { color: #22d3ee; } .f-badge.am { color: #f5a524; } .f-badge.gr { color: #34c38f; }
+.f-under { margin-top: 20px; font-size: 16px; color: #8ea3bf; }
+.f-under b { color: #dbe7f5; font-weight: 600; }
+
+/* Limitations and closing */
+.f-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; margin-top: 8px; width: 860px; text-align: left; }
+.f-list div { border-left: 2px solid rgba(245,165,36,.7); padding: 8px 0 8px 16px; font-size: 20px; color: #e8eef7; background: rgba(13,24,43,.6); border-radius: 0 10px 10px 0; }
+.f-close { font-size: 50px; font-weight: 700; color: #fff; line-height: 1.34; letter-spacing: -.01em; }
+.f-close span { display: block; }
+.f-close em { font-style: normal; color: #22d3ee; }
+
+/* Persistent labels during app footage */
+.f-bug { position: absolute; top: 20px; right: 24px; display: flex; gap: 8px; opacity: 0; transition: opacity .6s ease; }
+.f-bug.on { opacity: 1; }
+.f-bug span { font-family: "Cascadia Mono", Consolas, monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  padding: 6px 11px; border-radius: 8px; background: rgba(5,10,20,.86); border: 1px solid #25395a; color: #9fb3cd; }
+.f-bug span.cy { border-color: rgba(34,211,238,.5); color: #9eeaf7; }
+
+/* Annotations */
+.f-ring { position: absolute; border: 2px solid #22d3ee; border-radius: 16px; opacity: 0; transform: scale(1.04);
+  box-shadow: 0 0 0 4px rgba(34,211,238,.12), 0 0 30px -4px rgba(34,211,238,.55); transition: opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
+.f-ring.on { opacity: 1; transform: none; }
+.f-ring.amber { border-color: #f5a524; box-shadow: 0 0 0 4px rgba(245,165,36,.12), 0 0 30px -4px rgba(245,165,36,.55); }
+.f-callout { position: absolute; max-width: 330px; padding: 11px 15px 12px; border-radius: 12px; background: rgba(5,10,20,.93);
+  border: 1px solid rgba(34,211,238,.55); box-shadow: 0 14px 40px -12px rgba(0,0,0,.9); opacity: 0; transform: translateY(10px);
+  transition: opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1); text-align: left; }
+.f-callout.on { opacity: 1; transform: none; }
+.f-callout.amber { border-color: rgba(245,165,36,.65); }
+.f-callout small { display: block; font-family: "Cascadia Mono", Consolas, monospace; font-size: 10.5px; letter-spacing: .16em;
+  text-transform: uppercase; color: #22d3ee; margin-bottom: 4px; }
+.f-callout.amber small { color: #f5a524; }
+.f-callout div { font-size: 17px; font-weight: 600; color: #fff; line-height: 1.35; }
+
+/* Subtitles */
+.f-sub { position: absolute; left: 0; right: 0; bottom: 30px; display: flex; justify-content: center; opacity: 0; transition: opacity .22s ease; z-index: 5; }
+.f-sub.on { opacity: 1; }
+.f-sub span { max-width: 940px; padding: 8px 20px 9px; border-radius: 10px; background: rgba(4,8,16,.82);
+  font-size: 20px; font-weight: 500; line-height: 1.35; color: #fff; text-align: center; }

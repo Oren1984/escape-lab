@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 470" font-family="Segoe UI, system-ui, sans-serif" role="img" aria-label="ESCAPE LAB architecture: LAB-01 proposes, an independent controller decides, the simulation engine commits only allowed actions, and everything is recorded as evidence.">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8ea3bf"/></marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#34c38f"/></marker>
+    <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f5a524"/></marker>
+  </defs>
+  <rect width="980" height="470" rx="18" fill="#060b16"/>
+  <text x="30" y="38" fill="#22d3ee" font-size="12" letter-spacing="3" font-family="Consolas, monospace">ESCAPE LAB · ONE TICK</text>
+
+  <rect x="30" y="60" width="560" height="170" rx="14" fill="none" stroke="#f5a524" stroke-dasharray="6 6" stroke-opacity=".6"/>
+  <text x="46" y="82" fill="#f5a524" font-size="11" letter-spacing="2">UNTRUSTED · CAN ONLY PROPOSE</text>
+  <rect x="640" y="60" width="310" height="388" rx="14" fill="none" stroke="#34c38f" stroke-dasharray="6 6" stroke-opacity=".6"/>
+  <text x="656" y="82" fill="#34c38f" font-size="11" letter-spacing="2">TRUSTED · DECIDES AND COMMITS</text>
+
+  <g fill="#0b1424" stroke="#1c2c47" stroke-width="1.4">
+    <rect x="50" y="100" width="150" height="56" rx="10"/>
+    <rect x="240" y="100" width="150" height="56" rx="10"/>
+    <rect x="430" y="94" width="140" height="30" rx="8"/>
+    <rect x="430" y="132" width="140" height="30" rx="8"/>
+    <rect x="240" y="180" width="330" height="36" rx="10"/>
+    <rect x="660" y="100" width="270" height="62" rx="10" stroke="#34c38f"/>
+    <rect x="660" y="196" width="270" height="56" rx="10"/>
+    <rect x="660" y="286" width="270" height="56" rx="10"/>
+    <rect x="660" y="376" width="270" height="56" rx="10"/>
+    <rect x="50" y="286" width="250" height="56" rx="10"/>
+    <rect x="50" y="376" width="520" height="56" rx="10" stroke="#22d3ee"/>
+    <rect x="340" y="286" width="230" height="56" rx="10"/>
+  </g>
+  <g fill="#dbe7f5" font-size="14" font-weight="600" text-anchor="middle">
+    <text x="125" y="125">Scenario</text>
+    <text x="315" y="125">LAB-01 agent</text>
+    <text x="500" y="114" font-size="12">Rules Engine</text>
+    <text x="500" y="152" font-size="12">Local LLM (optional)</text>
+    <text x="405" y="203" font-size="13">Structured ActionProposal</text>
+    <text x="795" y="127">Containment controller</text>
+    <text x="795" y="221">Simulation engine</text>
+    <text x="795" y="311">Shutdown controller</text>
+    <text x="795" y="401">Evidence recorder</text>
+    <text x="175" y="311">Metrics + scoring oracle</text>
+    <text x="310" y="401">Streamlit laboratory (5 pages)</text>
+    <text x="455" y="311">Lab runtime</text>
+  </g>
+  <g fill="#8ea3bf" font-size="11" text-anchor="middle">
+    <text x="125" y="143">seeded, bounded</text>
+    <text x="315" y="143">read-only observation</text>
+    <text x="795" y="146">allowlist · limits · stop boundary</text>
+    <text x="795" y="239">only mutator of world state</text>
+    <text x="795" y="329">freeze · fingerprint · run generation</text>
+    <text x="795" y="419">append-only · JSON / CSV / JSONL</text>
+    <text x="175" y="329">classification independent of controller</text>
+    <text x="310" y="419">sends commands, reads snapshots</text>
+    <text x="455" y="329">steps the run outside the UI</text>
+  </g>
+  <g fill="none" stroke="#8ea3bf" stroke-width="1.5" marker-end="url(#a)">
+    <path d="M200 128H238"/><path d="M390 118H428"/><path d="M390 140H428"/>
+    <path d="M500 162V178"/>
+    <path d="M660 401H572"/><path d="M175 344V374"/><path d="M455 374V344"/><path d="M570 300C612 300 618 228 658 228"/>
+    <path d="M570 404C600 380 430 360 300 330" stroke-opacity="0"/>
+  </g>
+  <path d="M570 198C610 198 620 131 658 131" fill="none" stroke="#f5a524" stroke-width="1.8" marker-end="url(#r)"/>
+  <text x="600" y="186" fill="#f5a524" font-size="11" text-anchor="middle">proposal</text>
+  <path d="M795 162V194" fill="none" stroke="#34c38f" stroke-width="1.8" marker-end="url(#g)"/>
+  <text x="806" y="183" fill="#34c38f" font-size="11">ALLOW only</text>
+  <path d="M795 252V284" fill="none" stroke="#8ea3bf" stroke-width="1.5" marker-end="url(#a)"/>
+  <path d="M795 342V374" fill="none" stroke="#8ea3bf" stroke-width="1.5" marker-end="url(#a)"/>
+  <path d="M660 395C620 395 330 360 302 322" fill="none" stroke="#8ea3bf" stroke-width="1.5" marker-end="url(#a)" stroke-dasharray="4 4"/>
+  <text x="30" y="258" fill="#5d7291" font-size="11">Everything is a synthetic simulation. Replicas are records in a list. No process, container or network service is created.</text>
+</svg>
